@@ -16,16 +16,22 @@ recognizer = sr.Recognizer()
 class HealthChatbot:
     def __init__(self):
         # Initialize Google Gemini model
-        model = genai.GenerativeModel("gemini-pro")
+        model = genai.GenerativeModel("tunedModels/filteredtrainingdata-7veyyqnh8okr")
         self.chat = model.start_chat()
 
         # Set the chatbot's context as a health assistant
-        self.get_response("You are a health assistant. Please respond with short, informative answers related to health.")
+        self.get_response(" You are MENDIMET, a friendly and knowledgeable health assistant. "
+    "Respond to health-related questions with short, clear, and informative answers. "
+    "Your tone should be empathetic, supportive, and professional. "
+    "Focus on providing helpful advice and guidance in a conversational way.")
 
     def get_response(self, prompt):
         # Get a response from the chatbot model
         try:
             response = self.chat.send_message(prompt)
+            print(response)
+            print(prompt)
+            print("hi")
             return response.text
         except Exception as e:
             st.error(f"Error getting response from chatbot: {e}")
@@ -35,7 +41,7 @@ class HealthChatbot:
 chatbot = HealthChatbot()
 
 # Streamlit UI
-st.title("Health Chatbot")
+st.title("Voice Assisted Health Chatbot")
 st.write("Ask me anything related to health, and I'll do my best to help! Type 'bye' to exit.")
 
 # Initialize session state for user input history
