@@ -10,6 +10,20 @@ import os
 # Configure Google Gemini API key
 genai.configure(api_key='AIzaSyDA4tluJJPc_o-EnpJIwwJ6qVpmqbE8oEU')
 
+# CSS to add a background image
+page_bg_img = f"""
+<style>
+.stApp {{
+    background-image: url("https://atroposjs.com/images/header/atropos-forest-front.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+  
+    background-attachment: fixed;
+}}
+</style>
+"""
+st.markdown(page_bg_img, unsafe_allow_html=True)
+
 # Initialize the recognizer for speech recognition
 recognizer = sr.Recognizer()
 
@@ -20,7 +34,7 @@ class HealthChatbot:
         self.chat = model.start_chat()
 
         # Set the chatbot's context as a health assistant
-        self.get_response(" You are MENDIMET, a friendly and knowledgeable health assistant. "
+        self.get_response(" You are Aura, a friendly and knowledgeable health assistant. "
     "Respond to health-related questions with short, clear, and informative answers. "
     "Your tone should be empathetic, supportive, and professional. "
     "Focus on providing helpful advice and guidance in a conversational way.")
@@ -31,7 +45,6 @@ class HealthChatbot:
             response = self.chat.send_message(prompt)
             print(response)
             print(prompt)
-            print("hi")
             return response.text
         except Exception as e:
             st.error(f"Error getting response from chatbot: {e}")
@@ -41,7 +54,7 @@ class HealthChatbot:
 chatbot = HealthChatbot()
 
 # Streamlit UI
-st.title("Voice Assisted Health Chatbot")
+st.title("Aura- Your Personal Health Assistant")
 st.write("Ask me anything related to health, and I'll do my best to help! Type 'bye' to exit.")
 
 # Initialize session state for user input history
@@ -129,4 +142,4 @@ if st.session_state.chat_history:
 # Option to clear input and reset chat
 if st.button("Clear"):
     st.session_state.chat_history = []
-    st.experimental_rerun()  # Rerun to refresh the state
+    st.experimental_rerun()
